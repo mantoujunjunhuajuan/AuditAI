@@ -5,13 +5,15 @@
 venv/
 .venv/
 env/
-
+.roo
+.cursor
+.taskmaster
 # 2. 忽略 Python 缓存文件和文件夹
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
+tests
 # 3. 忽略环境变量文件 (极其重要！)
 # 通常命名为 .env, .env.* 但不包括 .env.example
 .env
@@ -23,7 +25,7 @@ __pycache__/
 Thumbs.db
 .idea/
 .vscode/
-
+.roomodes
 # 5. 忽略日志文件和数据库文件
 *.log
 *.sqlite3
@@ -53,3 +55,8 @@ google-credentials.json
 
 secrets/
 *credentials*.json
+.roomodes
+.windsurfrules
+clean_gcs_bucket.py
+docs/
+tests

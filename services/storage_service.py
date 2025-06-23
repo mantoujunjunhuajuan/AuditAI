@@ -122,9 +122,12 @@ class LocalStorageService(IStorageService):
         return target_path.as_uri()
 
     def download_file(self, *, source: str, target_path: Path | str) -> None:  # noqa: D401
-        source_path = Path(source)
-        if source_path.as_uri().startswith("file://"):
-            source_path = Path(source_path.path)
+        # Create a Path object from the source string
+        raw_path = Path(source.replace("file://", ""))
+        
+        # Ensure the path is absolute before reading
+        source_path = raw_path.resolve()
+        
         Path(target_path).write_bytes(source_path.read_bytes())
 
     def delete_file(self, *, uri: str) -> None:  # noqa: D401

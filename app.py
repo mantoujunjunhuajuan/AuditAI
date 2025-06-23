@@ -77,7 +77,7 @@ def analyze_document_with_gemini(uploaded_file):
             st.success("✅ 文件上传成功！")
             
             # 使用Gemini分析文档
-            model = genai.GenerativeModel('gemini-1.5-flash')
+            model = genai.GenerativeModel('gemini-2.5-flash')
             
             prompt_text = """
             你是一个经验丰富的保险理赔审核员。

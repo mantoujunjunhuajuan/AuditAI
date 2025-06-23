@@ -2,4 +2,7 @@ streamlit
 google-generativeai
 google-cloud-storage
 Pillow
-tenacity>=8.2.2 
+tenacity>=8.2.2
+pytest==8.4.1
+pdfminer.six==20240706
+python-dotenv
