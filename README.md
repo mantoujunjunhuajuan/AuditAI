@@ -20,6 +20,15 @@
 
 ---
 
+## 📢 Project Status | 项目状态
+
+**This project was developed for the Google Cloud Agent Development Kit Hackathon 2025.**
+
+**English**: This is a functional prototype designed to showcase the power of a multi-agent AI system on Google Cloud. While the core pipeline is complete and operational for demonstration.
+**中文**: 本项目是为2025年Google Cloud智能体开发套件黑客松而开发的功能原型。旨在展示基于Google Cloud的多智能体AI系统的强大能力。尽管核心流程已完成并可用于演示。
+
+---
+
 ## 💼 Problem & Solution | 问题与解决方案
 
 ### The Problem | 问题背景
@@ -165,7 +174,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 4. Set up configuration | 设置配置
-cp .env.example .env
+cp env.template .env
 # Edit .env with your API keys | 编辑.env文件添加API密钥
 
 # 5. Set up Google Cloud (Optional but Recommended) | 设置Google Cloud（可选但推荐）
@@ -262,6 +271,11 @@ echo "GCS_BUCKET=your-auditai-bucket" >> .env
 
 ## 📖 Usage Guide | 使用指南
 
+This project offers two primary ways to run:
+
+*   **Web Application (`app/main.py`)**: A user-friendly, interactive web interface for processing claims. Ideal for business users and live demonstrations.
+*   **Command-Line Demo (`demo.py`)**: A script for developers to quickly test the full processing pipeline from the terminal. Ideal for testing, scripting, and integration checks.
+
 ### Web Interface | Web界面
 
 **English**:
@@ -280,29 +294,35 @@ echo "GCS_BUCKET=your-auditai-bucket" >> .env
 5. **查看处理**: 观看实时多智能体协作
 6. **下载报告**: 获取综合审核结果
 
-### Command Line Interface | 命令行界面
-
-```bash
-# Process a single document | 处理单个文档
-python pipeline.py path/to/claim/document.pdf
-
-# Test with sample files | 使用示例文件测试
-python test_pipeline.py
-```
-
-### Supported File Types | 支持的文件类型
+### Command-Line Demo | 命令行演示
 
 **English**:
-- **PDF Documents**: Insurance forms, policies, claim documents
-- **Image Files**: JPG, PNG, TIFF, BMP - photos of damage, scanned forms
-- **Word Documents**: DOCX, DOC - claim forms, correspondence
-- **Medical Files**: DICOM medical imaging (with privacy compliance)
+Use `demo.py` to run the entire pipeline on a file from your terminal. This is ideal for developers, testing, or automated scripting.
+
+```bash
+# Run the demo with a sample file
+python demo.py --file test_files/sample_claim_form.txt
+
+# Run in Chinese language mode
+python demo.py --file test_files/sample_claim_form.txt --lang zh
+
+# See all available options
+python demo.py --help
+```
 
 **中文**:
-- **PDF文档**: 保险表格、保单、理赔文件
-- **图像文件**: JPG、PNG、TIFF、BMP - 损坏照片、扫描表格
-- **Word文档**: DOCX、DOC - 理赔表格、通信文件
-- **医疗文件**: DICOM医疗影像（符合隐私合规）
+使用 `demo.py` 脚本从终端对单个文件运行完整的处理流水线。这非常适合开发人员、测试或自动化脚本。
+
+```bash
+# 使用示例文件运行演示
+python demo.py --file test_files/sample_claim_form.txt
+
+# 以中文模式运行
+python demo.py --file test_files/sample_claim_form.txt --lang zh
+
+# 查看所有可用选项
+python demo.py --help
+```
 
 ---
 
@@ -332,15 +352,32 @@ AuditAI/
 
 ### Running Tests | 运行测试
 
+**English**:
+The primary method for testing the full, end-to-end pipeline is by using the `demo.py` script. This script simulates a real-world claim submission and provides detailed, step-by-step output of the multi-agent process.
+
 ```bash
-# Test the complete pipeline | 测试完整流水线
-python test_pipeline.py
+# Test the complete pipeline with a sample text file
+python demo.py --file test_files/sample_claim_form.txt
 
-# Test API connectivity | 测试API连接
-python test_api.py
+# Test with a sample image file (requires OCR capabilities)
+python demo.py --file test_files/sample_form_scan.png
 
-# Test with sample files | 使用示例文件测试
-python test_files/test_multiformat_support.py
+# Test with a sample document file
+python demo.py --file storage/claims/AuditAI_Insurance_Policy.docx
+```
+
+**中文**:
+测试整个端到端流水线的主要方法是使用 `demo.py` 脚本。该脚本模拟一次真实的理赔提交流程，并提供多智能体处理过程的详细分步输出。
+
+```bash
+# 使用示例文本文件测试完整流水线
+python demo.py --file test_files/sample_claim_form.txt
+
+# 使用示例图片文件测试（需要OCR能力）
+python demo.py --file test_files/sample_form_scan.png
+
+# 使用示例文档文件测试
+python demo.py --file storage/claims/AuditAI_Insurance_Policy.docx
 ```
 
 ### Adding New Agents | 添加新的智能体
@@ -360,7 +397,6 @@ python test_files/test_multiformat_support.py
 5. 更新Web界面
 
 ---
-
 
 ## 🏆 Technical Innovation | 技术创新
 
