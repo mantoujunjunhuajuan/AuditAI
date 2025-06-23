@@ -1,8 +1,32 @@
-streamlit
-google-generativeai
-google-cloud-storage
-Pillow
+# Core Dependencies | 核心依赖
+streamlit>=1.29.0
+google-generativeai>=0.3.0
+google-cloud-storage>=2.10.0
+google-cloud-aiplatform>=1.38.0
+python-dotenv>=1.0.0
+
+# Document Processing | 文档处理
+Pillow>=10.0.0
+pdfminer.six>=20240706
+python-docx>=1.1.0
+PyPDF2>=3.0.0
+
+# Reliability & Error Handling | 可靠性和错误处理
 tenacity>=8.2.2
-pytest==8.4.1
-pdfminer.six==20240706
-python-dotenv
+requests>=2.31.0
+
+# Development & Testing | 开发和测试
+pytest>=8.4.1
+pytest-cov>=4.1.0
+
+# Data Processing | 数据处理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Web & API | Web和API
+aiohttp>=3.9.0
+uvicorn>=0.24.0
+
+# Utility | 工具类
+python-magic>=0.4.27
+typing-extensions>=4.8.0

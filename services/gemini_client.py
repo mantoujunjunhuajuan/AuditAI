@@ -28,7 +28,7 @@ class GeminiClient:
             api_key: The API key for the Gemini API. If not provided, it will
               be read from the GEMINI_API_KEY environment variable.
             model: The Gemini model to use. If not provided, it will default
-              to 'gemini-1.5-flash'.
+              to 'gemini-1.5-flash' (widely supported).
         """
         self.api_key = api_key or os.environ.get(API_KEY_ENV)
         if not self.api_key:
@@ -37,7 +37,7 @@ class GeminiClient:
         # Configure the API key
         genai.configure(api_key=self.api_key)
         
-        # Set the model name - use current available models
+        # Set the model name - use globally supported model as default
         self.model_name = model or "gemini-1.5-flash"
         
         # Initialize the model
@@ -47,7 +47,7 @@ class GeminiClient:
         except Exception as e:
             print(f"❌ Failed to initialize Gemini model '{self.model_name}': {e}")
             # Try fallback models in order of preference
-            fallback_models = ["gemini-2.0-flash", "gemini-1.5-pro", "gemini-2.5-flash"]
+            fallback_models = ["gemini-1.5-pro", "gemini-1.0-pro"]
             
             for fallback_model in fallback_models:
                 try:
@@ -76,6 +76,19 @@ class GeminiClient:
             
         except Exception as err:
             print(f"❌ Gemini API call failed: {err}")
-            # Provide more specific error information
+            
+            # 如果是地理位置限制错误，提供明确的错误信息
+            if "User location is not supported" in str(err):
+                error_msg = (
+                    f"Gemini API地理位置限制错误: {err}\n\n"
+                    "建议解决方案:\n"
+                    "1. 使用支持地区的VPN服务\n"
+                    "2. 联系Google Cloud支持申请地区访问权限\n"
+                    "3. 考虑部署到支持的Google Cloud地区\n"
+                    "4. 使用其他AI服务提供商的API"
+                )
+                raise RuntimeError(error_msg) from err
+            
+            # 其他错误直接抛出
             error_msg = f"Gemini API call failed with model '{self.model_name}': {err}"
             raise RuntimeError(error_msg) from err 

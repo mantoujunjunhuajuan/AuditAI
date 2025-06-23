@@ -21,7 +21,7 @@ class I18nManager:
                     "step1": "1. 📄 文档智能分析",
                     "step2": "2. 🔍 信息结构化提取",
                     "step3": "3. 📋 规则验证检查",
-                    "step4": "4. ⚠️ 风险分析评分",
+                    "step4": "4. 🤝 智能体协作风险分析",
                     "step5": "5. 📊 生成最终报告"
                 },
                 
@@ -35,22 +35,23 @@ class I18nManager:
                 
                 # 文件上传
                 "file_upload": {
-                    "label": "选择PDF文件进行分析",
+                    "label": "选择理赔文档进行分析",
                     "info": "📄 文件: {filename} ({size:.2f} MB)",
                     "button": "🚀 开始智能审核",
-                    "error_no_key": "❌ 请先配置 GEMINI_API_KEY 环境变量"
+                    "error_no_key": "❌ 请先配置 GEMINI_API_KEY 环境变量",
+                    "help_text": "支持格式: PDF文档、医疗影像(JPEG/PNG/TIFF/DICOM)、医疗报告(DOCX/DOC)"
                 },
                 
                 # 处理进度
                 "processing": {
                     "initializing": "🔧 初始化AI处理管道...",
-                    "uploading": "📤 上传文件到本地存储...",
+                    "uploading": "📤 上传文件到存储服务...",
                     "uploaded": "✅ 文件已上传: {filename}",
                     "progress_title": "🔄 处理进度",
                     "doc_analysis": "📄 执行文档智能分析...",
                     "info_extraction": "🔍 提取结构化信息...",
                     "rule_validation": "📋 执行规则验证...",
-                    "risk_analysis": "⚠️ 分析风险因素...",
+                    "risk_analysis": "🤝 智能风险分析 (多Agent协作)...",
                     "report_generation": "📊 生成最终报告...",
                     "completed": "🎉 处理完成！"
                 },
@@ -147,6 +148,30 @@ class I18nManager:
                 "language": {
                     "switch_to_english": "🇺🇸 English",
                     "switch_to_chinese": "🇨🇳 中文"
+                },
+                
+                # 存储服务
+                "storage": {
+                    "gcs_title": "☁️ Google Cloud Storage",
+                    "gcs_bucket": "📦 存储桶: `{bucket}`",
+                    "gcs_description": "*文件将安全存储在Google云端*",
+                    "local_title": "📁 本地存储",
+                    "local_description": "*文件存储在本地（开发模式）*",
+                    "uploaded_to_gcs": "✅ 文件已上传至 Google Cloud Storage",
+                    "gcs_location": "☁️ 存储位置: `{location}`",
+                    "powered_by_gcp": "*🌟 基于Google Cloud基础设施*"
+                },
+                
+                # 协作功能
+                "collaboration": {
+                    "agent_collaboration": "🤝 智能体协作中...",
+                    "collaboration_triggered": "🤝 协作机制已触发",
+                    "requesting_collaboration": "📞 请求协作分析...",
+                    "collaboration_success": "✅ 协作分析成功",
+                    "collaboration_failed": "❌ 协作分析失败",
+                    "enhanced_analysis": "🔬 增强分析结果",
+                    "collaborative_insights": "🤝 协作洞察",
+                    "multi_agent_network": "🕸️ 多智能体网络"
                 }
             },
             
@@ -162,7 +187,7 @@ class I18nManager:
                     "step1": "1. 📄 Document Intelligence Analysis",
                     "step2": "2. 🔍 Structured Information Extraction",
                     "step3": "3. 📋 Rule Validation Check",
-                    "step4": "4. ⚠️ Risk Analysis Scoring",
+                    "step4": "4. 🤝 Multi-Agent Collaborative Risk Analysis",
                     "step5": "5. 📊 Final Report Generation"
                 },
                 
@@ -176,22 +201,23 @@ class I18nManager:
                 
                 # 文件上传
                 "file_upload": {
-                    "label": "Choose PDF file for analysis",
+                    "label": "Choose claim document for analysis",
                     "info": "📄 File: {filename} ({size:.2f} MB)",
                     "button": "🚀 Start Intelligent Review",
-                    "error_no_key": "❌ Please configure GEMINI_API_KEY environment variable first"
+                    "error_no_key": "❌ Please configure GEMINI_API_KEY environment variable first",
+                    "help_text": "Supported formats: PDF documents, Medical imaging (JPEG/PNG/TIFF/DICOM), Medical reports (DOCX/DOC)"
                 },
                 
                 # 处理进度
                 "processing": {
                     "initializing": "🔧 Initializing AI processing pipeline...",
-                    "uploading": "📤 Uploading file to local storage...",
+                    "uploading": "📤 Uploading file to storage service...",
                     "uploaded": "✅ File uploaded: {filename}",
                     "progress_title": "🔄 Processing Progress",
                     "doc_analysis": "📄 Executing document intelligence analysis...",
                     "info_extraction": "🔍 Extracting structured information...",
                     "rule_validation": "📋 Executing rule validation...",
-                    "risk_analysis": "⚠️ Analyzing risk factors...",
+                    "risk_analysis": "🤝 Intelligent Risk Analysis (Multi-Agent Collaboration)...",
                     "report_generation": "📊 Generating final report...",
                     "completed": "🎉 Processing completed!"
                 },
@@ -288,6 +314,30 @@ class I18nManager:
                 "language": {
                     "switch_to_english": "🇺🇸 English",
                     "switch_to_chinese": "🇨🇳 中文"
+                },
+                
+                # 存储服务
+                "storage": {
+                    "gcs_title": "☁️ Google Cloud Storage",
+                    "gcs_bucket": "📦 Bucket: `{bucket}`",
+                    "gcs_description": "*Files stored securely in Google Cloud*",
+                    "local_title": "📁 Local Storage",
+                    "local_description": "*Files stored locally (development mode)*",
+                    "uploaded_to_gcs": "✅ File uploaded to Google Cloud Storage",
+                    "gcs_location": "☁️ Storage Location: `{location}`",
+                    "powered_by_gcp": "*🌟 Powered by Google Cloud Infrastructure*"
+                },
+                
+                # 协作功能
+                "collaboration": {
+                    "agent_collaboration": "🤝 Agent Collaboration in Progress...",
+                    "collaboration_triggered": "🤝 Collaboration Mechanism Triggered",
+                    "requesting_collaboration": "📞 Requesting Collaborative Analysis...",
+                    "collaboration_success": "✅ Collaborative Analysis Successful",
+                    "collaboration_failed": "❌ Collaborative Analysis Failed",
+                    "enhanced_analysis": "🔬 Enhanced Analysis Results",
+                    "collaborative_insights": "🤝 Collaborative Insights",
+                    "multi_agent_network": "🕸️ Multi-Agent Network"
                 }
             }
         }

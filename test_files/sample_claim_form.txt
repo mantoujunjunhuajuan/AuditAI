@@ -1,0 +1,68 @@
+INSURANCE CLAIM FORM
+
+==============================
+CLAIM INFORMATION
+==============================
+
+Claim Number: CLM-2024-001234
+Policy Number: POL-789456123
+Date of Incident: 2024-06-15
+Date of Report: 2024-06-20
+
+==============================
+CLAIMANT INFORMATION  
+==============================
+
+Name: John Smith
+Phone: (555) 123-4567
+Email: john.smith@email.com
+Address: 123 Main Street, Anytown, ST 12345
+
+==============================
+VEHICLE INFORMATION
+==============================
+
+Make: Toyota
+Model: Camry
+Year: 2020
+VIN: 1HGBH41JXMN109186
+License Plate: ABC-1234
+
+==============================
+INCIDENT DETAILS
+==============================
+
+Incident Type: Motor Vehicle Accident
+Location: Interstate 95, Mile Marker 45
+Weather Conditions: Clear
+Road Conditions: Dry
+
+Description of Incident:
+While driving southbound on I-95, I was rear-ended by another vehicle at approximately 3:30 PM. The other driver was following too closely and was unable to stop in time when traffic slowed down. The impact caused damage to my rear bumper and trunk.
+
+Estimated Damage Amount: $4,500.00
+
+==============================
+OTHER PARTIES INVOLVED
+==============================
+
+Other Driver: Jane Doe
+Insurance Company: State Farm
+Policy Number: SF-987654321
+Phone: (555) 987-6543
+
+==============================
+WITNESSES
+==============================
+
+Witness 1: Mike Johnson
+Phone: (555) 246-8135
+
+==============================
+SIGNATURE
+==============================
+
+I certify that the information provided is true and accurate to the best of my knowledge.
+
+Claimant Signature: John Smith
+Date: 2024-06-20 

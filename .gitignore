@@ -5,9 +5,9 @@
 venv/
 .venv/
 env/
-.roo
-.cursor
-.taskmaster
+.roo/
+.cursor/
+.taskmaster/
 # 2. 忽略 Python 缓存文件和文件夹
 __pycache__/
 *.pyc

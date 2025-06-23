@@ -40,12 +40,13 @@ class ClaimProcessingPipeline:
         self.risk_analysis_agent = RiskAnalysisAgent(gemini_client)
         self.report_gen_agent = ReportGenAgent(gemini_client)
 
-    def run(self, file_uri: str) -> ReportOutput:
+    def run(self, file_uri: str, language: str = "中文") -> ReportOutput:
         """
         Execute the complete claim processing pipeline.
         
         Args:
             file_uri: URI of the uploaded file to process
+            language: Language for the final report generation
             
         Returns:
             ReportOutput: Final generated report with recommendation
@@ -72,32 +73,113 @@ class ClaimProcessingPipeline:
         print(f"   - Valid: {validation_result.is_valid}")
         print(f"   - Violations: {len(validation_result.violations)}")
 
-        # Step 4: Risk Analysis
+        # Step 4: Risk Analysis (with collaborative capabilities)
         print("\n⚠️  Step 4: Risk Analysis...")
-        risk_analysis_output = self.risk_analysis_agent.process(extraction_output, validation_result)
+        risk_analysis_output = self.risk_analysis_agent.process(
+            extraction_output, 
+            validation_result,
+            doc_intel_output=doc_intel_output,  # Pass original document for collaboration
+            info_extract_agent=self.info_extract_agent  # Enable collaboration
+        )
         print(f"✅ Risk analysis completed")
         print(f"   - Risk score: {risk_analysis_output.risk_score}/100")
 
         # Step 5: Final Report Generation
         print("\n📊 Step 5: Final Report Generation...")
-        final_report = self.report_gen_agent.process(risk_analysis_output, extraction_output.extracted_data)
+        final_report = self.report_gen_agent.process(risk_analysis_output, extraction_output.extracted_data, language=language)
         print(f"✅ Final report generated")
         print(f"   - Recommendation: {final_report.recommendation}")
         print(f"   - Confidence: {final_report.confidence_score:.2f}")
 
         return final_report
 
+    def run_for_demo(self, file_path: str, language: str = "中文"):
+        """
+        Execute the pipeline for demonstration purposes, returning detailed step-by-step results.
+        
+        Args:
+            file_path: Local path to the file to process.
+            language: Language for the final report generation.
+            
+        Returns:
+            A tuple containing:
+            - dict: A dictionary with results from each agent.
+            - str: The path to the saved final report.
+        """
+        results = {}
+        
+        # Upload file first
+        file_uri = self.storage_service.save_file(Path(file_path))
+        
+        # Step 1: Document Intelligence
+        doc_intel_output = self.doc_intel_agent.process(file_uri)
+        results['doc_intel'] = {
+            "success": True, 
+            "doc_type": doc_intel_output.doc_type,
+            "content_length": len(doc_intel_output.content)
+        }
 
-def create_pipeline() -> ClaimProcessingPipeline:
+        # Step 2: Information Extraction
+        extraction_output = self.info_extract_agent.process(doc_intel_output)
+        results['info_extract'] = {
+            "success": True,
+            "extracted_fields": list(extraction_output.extracted_data.keys())
+        }
+
+        # Step 3: Rule Validation
+        validation_result = self.rule_check_agent.process(extraction_output)
+        results['rule_check'] = {
+            "success": validation_result.is_valid,
+            "violations": len(validation_result.violations)
+        }
+
+        # Step 4: Risk Analysis
+        risk_analysis_output = self.risk_analysis_agent.process(
+            extraction_output, 
+            validation_result,
+            doc_intel_output=doc_intel_output,
+            info_extract_agent=self.info_extract_agent
+        )
+        results['risk_analysis'] = {
+            "success": True,
+            "risk_score": risk_analysis_output.risk_score,
+            "collaboration_used": getattr(risk_analysis_output, 'collaboration_used', False)
+        }
+
+        # Step 5: Final Report Generation
+        final_report = self.report_gen_agent.process(risk_analysis_output, extraction_output.extracted_data, language=language)
+        
+        # Save report to a file
+        report_path = self.storage_service.save_report(final_report.report_content, Path(file_path).name)
+        
+        results['report_gen'] = {
+            "success": True,
+            "recommendation": final_report.recommendation,
+            "confidence": final_report.confidence_score,
+            "report_path": report_path
+        }
+        
+        return results, report_path
+
+
+def create_pipeline(model: str = "gemini-1.5-flash") -> ClaimProcessingPipeline:
     """
     Factory function to create a fully configured pipeline instance.
+    
+    Args:
+        model: The Gemini model to use (e.g., "gemini-1.5-flash", "gemini-2.5-flash")
     
     Returns:
         ClaimProcessingPipeline: Ready-to-use pipeline instance
     """
-    # Initialize services
-    gemini_client = GeminiClient()
-    storage_service = LocalStorageService()
+    # Initialize services with selected model
+    gemini_client = GeminiClient(model=model)
+    
+    # Use factory method to automatically select storage service
+    # Prioritizes GCS if configured, falls back to local storage
+    from services.storage_service import get_storage_service
+    storage_service = get_storage_service()
+    
     pdf_parser = PDFParser()
     
     # Create and return pipeline
