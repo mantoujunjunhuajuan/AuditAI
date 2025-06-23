@@ -282,7 +282,7 @@ This project offers two primary ways to run:
 1. **Start the application**: Run `streamlit run app/main.py`
 2. **Access the interface**: Open http://localhost:8501 in your browser
 3. **Select AI model**: Choose your preferred Gemini model
-4. **Upload document**: Support for PDF, DOCX, images, medical files
+4. **Upload document**: Support for PDF, DOCX, images, medical files（Refer to the test documents under storage/claims, local storage is uploaded to this folder by default.）
 5. **View processing**: Watch real-time multi-agent collaboration
 6. **Download report**: Get comprehensive audit results
 
@@ -290,7 +290,7 @@ This project offers two primary ways to run:
 1. **启动应用**: 运行 `streamlit run app/main.py`
 2. **访问界面**: 在浏览器中打开 http://localhost:8501
 3. **选择AI模型**: 选择首选的Gemini模型
-4. **上传文档**: 支持PDF、DOCX、图像、医疗文件
+4. **上传文档**: 支持PDF、DOCX、图像、医疗文件（R请参阅 storage/claims 下的测试文档，本地存储默认上传到此文件夹。）
 5. **查看处理**: 观看实时多智能体协作
 6. **下载报告**: 获取综合审核结果
 
